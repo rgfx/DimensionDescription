@@ -118,9 +118,9 @@ class CommandExecuteHandler(adsk.core.CommandEventHandler):
                 
                 if bbox and bbox.isValid:
                     # Calculate dimensions in mm (multiplying by 10 to convert from cm)
-                    # Swapped x and y axes to correct the length and width values
-                    width = round((bbox.maxPoint.x - bbox.minPoint.x) * 10, 2)
-                    length = round((bbox.maxPoint.y - bbox.minPoint.y) * 10, 2)
+                    # Using original assignments as per bounding box values
+                    length = round((bbox.maxPoint.x - bbox.minPoint.x) * 10, 2)
+                    width = round((bbox.maxPoint.y - bbox.minPoint.y) * 10, 2)
                     height = round((bbox.maxPoint.z - bbox.minPoint.z) * 10, 2)
                     
                     # Sort dimensions to match conventional L > W > H
