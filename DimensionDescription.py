@@ -32,17 +32,22 @@ def run(context):
         # Get workspace and add to the MODEL workspace context menu
         workspaces = ui.workspaces
         modelWS = workspaces.itemById('FusionSolidEnvironment')
-
         if modelWS:
-            # Add to component context menu
-
-            
-            modelWS.toolbarPanels.itemById('AssemblePanel').controls.addCommand(cmdDef)
+            # Add to the add-ins menu with try/except to handle potential errors
+            try:
+                addInsPanel = modelWS.toolbarPanels.itemById('SolidScriptsAddinsPanel')
+                if addInsPanel:
+                    addInsPanel.controls.addCommand(cmdDef)
+            except:
+                pass  # Continue even if we can't add to the panel
             
             # Add to browser context menu
-            contextPanel = modelWS.toolbarPanels.itemById('InspectPanel')
-            if contextPanel:
-                contextPanel.controls.addCommand(cmdDef)
+            try:
+                contextPanel = modelWS.toolbarPanels.itemById('InspectPanel')
+                if contextPanel:
+                    contextPanel.controls.addCommand(cmdDef)
+            except:
+                pass  # Continue even if we can't add to the panel
         
         # Keep the add-in loaded when the script completes execution
         adsk.autoTerminate(False)
@@ -50,7 +55,6 @@ def run(context):
     except:
         if ui:
             ui.messageBox('Failed:\n{}'.format(traceback.format_exc()))
-            
 
 
 # CommandCreatedEventHandler for the command
@@ -114,12 +118,13 @@ class CommandExecuteHandler(adsk.core.CommandEventHandler):
                 
                 if bbox and bbox.isValid:
                     # Calculate dimensions in mm (multiplying by 10 to convert from cm)
-                    length = round((bbox.maxPoint.x - bbox.minPoint.x) * 10, 2)
-                    width = round((bbox.maxPoint.y - bbox.minPoint.y) * 10, 2)
+                    # Swapped x and y axes to correct the length and width values
+                    width = round((bbox.maxPoint.x - bbox.minPoint.x) * 10, 2)
+                    length = round((bbox.maxPoint.y - bbox.minPoint.y) * 10, 2)
                     height = round((bbox.maxPoint.z - bbox.minPoint.z) * 10, 2)
                     
                     # Sort dimensions to match conventional L > W > H
-                    dimensions = sorted([width, length, height], reverse=True)  # Reorder here
+                    dimensions = sorted([length, width, height], reverse=True)
                     
                     # Format dimensions string
                     dim_str = f"L: {dimensions[0]}mm, W: {dimensions[1]}mm, H: {dimensions[2]}mm"
