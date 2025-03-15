@@ -1,0 +1,14 @@
+{
+	"autodeskProduct":	"Fusion",
+	"type":	"addin",
+	"id":	"140f15ad-ab0a-4334-95b9-2a95f40354e1",
+	"author":	"rgfx",
+	"description":	{
+		"":	"Get the active design and all its components.\nCalculate the bounding box of each component.\nExtract dimensions (like width, height, depth) from the bounding box.\nFormat that info into a string.\nWrite that string into the \"Description\" field of the component’s properties."
+	},
+	"version":	"1",
+	"runOnStartup":	true,
+	"supportedOS":	"windows|mac",
+	"editEnabled":	true,
+	"iconFilename":	"AddInIcon.svg"
+}
