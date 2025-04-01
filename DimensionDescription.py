@@ -129,23 +129,8 @@ class CommandExecuteHandler(adsk.core.CommandEventHandler):
                     # Format dimensions string
                     dim_str = f"L: {dimensions[0]}mm, W: {dimensions[1]}mm, H: {dimensions[2]}mm"
                     
-                    # Update description
-                    current_description = component.component.description
-                    
-                    # Check if dimensions are already in the description
-                    if "L:" in current_description and "W:" in current_description and "H:" in current_description:
-                        # Replace the existing dimensions
-                        import re
-                        updated_description = re.sub(r'L: [\d\.]+mm, W: [\d\.]+mm, H: [\d\.]+mm', dim_str, current_description)
-                    else:
-                        # Append the dimensions to the existing description
-                        if current_description and current_description.strip():
-                            updated_description = f"{current_description}\n{dim_str}"
-                        else:
-                            updated_description = dim_str
-                    
-                    # Set the updated description
-                    component.component.description = updated_description
+                    # Completely replace the description with the dimensions
+                    component.component.description = dim_str
                     updatedCount += 1
             
             ui.messageBox(f'Updated dimensions for {updatedCount} component(s)')

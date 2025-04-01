@@ -22,10 +22,13 @@ This add-in creates a command in Fusion 360 that calculates the bounding box dim
 4. Navigate to and select the folder containing this add-in
 5. Click **Run** to start the add-in
 
+### Typical add-in directory in Windows
+- C:\Users\<user>\AppData\Roaming\Autodesk\Autodesk Fusion 360\API\AddIns\DimensionDescription
+
 ## Usage
 
 1. Select one or more components in your design
-2. Click the **Add Dimensions to Description** command in the Inspect panel or right-click menu
+2. Click the **Add Dimensions to Description** command in the Inspect panel
 3. The dimensions will be added to each component's description
 
 ## How It Works
