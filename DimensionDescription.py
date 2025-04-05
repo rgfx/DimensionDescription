@@ -117,17 +117,16 @@ class CommandExecuteHandler(adsk.core.CommandEventHandler):
                 bbox = component.boundingBox
                 
                 if bbox and bbox.isValid:
-                    # Calculate dimensions in mm (multiplying by 10 to convert from cm)
-                    # Using original assignments as per bounding box values
-                    length = round((bbox.maxPoint.x - bbox.minPoint.x) * 10, 2)
-                    width = round((bbox.maxPoint.y - bbox.minPoint.y) * 10, 2)
-                    height = round((bbox.maxPoint.z - bbox.minPoint.z) * 10, 2)
-                    
-                    # Sort dimensions to match conventional L > W > H
+                    # Calculate dimensions in mm (multiplying by 10 to convert from cm to mm)
+                    length = (bbox.maxPoint.x - bbox.minPoint.x) * 10
+                    width = (bbox.maxPoint.y - bbox.minPoint.y) * 10
+                    height = (bbox.maxPoint.z - bbox.minPoint.z) * 10
+
+                    # Sort dimensions 
                     dimensions = sorted([length, width, height], reverse=True)
-                    
-                    # Format dimensions string
-                    dim_str = f"L: {dimensions[0]}mm, W: {dimensions[1]}mm, H: {dimensions[2]}mm"
+
+                    # Format with consistent decimal places
+                    dim_str = f"L: {dimensions[0]:.1f}mm, W: {dimensions[1]:.1f}mm, H: {dimensions[2]:.1f}mm"
                     
                     # Completely replace the description with the dimensions
                     component.component.description = dim_str
